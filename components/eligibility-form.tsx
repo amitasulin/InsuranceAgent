@@ -73,14 +73,17 @@ export function EligibilityForm() {
         body: JSON.stringify(formData),
       })
 
+      const data = await response.json()
+
       if (response.ok) {
         setIsSubmitted(true)
       } else {
-        alert('אירעה שגיאה. אנא נסו שוב.')
+        console.error('Error response:', data)
+        alert(`אירעה שגיאה: ${data.error || 'שגיאה לא ידועה'}. אנא נסו שוב.`)
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('אירעה שגיאה. אנא נסו שוב.')
+      alert('אירעה שגיאה בחיבור לשרת. אנא בדקו את החיבור לאינטרנט ונסו שוב.')
     } finally {
       setIsSubmitting(false)
     }
